@@ -97,6 +97,7 @@
     NSInteger _selectedSliceIndex;
     //pie view, contains all slices
     UIView  *_pieView;
+    UIView  *_donutView;
     
     //animation control
     NSTimer *_animationTimer;
@@ -157,6 +158,10 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
         
         _showLabel = YES;
         _showPercentage = YES;
+        
+        _donutView = [[UIView alloc] initWithFrame:CGRectZero];
+        _donutView.center = _pieView.center;
+        [self addSubview:_donutView];
     }
     return self;
 }
@@ -198,6 +203,10 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
         
         _showLabel = YES;
         _showPercentage = YES;
+        
+        _donutView = [[UIView alloc] initWithFrame:CGRectZero];
+        _donutView.center = _pieView.center;
+        [self addSubview:_donutView];
     }
     return self;
 }
@@ -205,6 +214,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
 - (void)setPieCenter:(CGPoint)pieCenter
 {
     [_pieView setCenter:pieCenter];
+    [_donutView setCenter:pieCenter];
     _pieCenter = CGPointMake(_pieView.frame.size.width/2, _pieView.frame.size.height/2);
 }
 
@@ -221,6 +231,16 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
 - (void)setPieBackgroundColor:(UIColor *)color
 {
     [_pieView setBackgroundColor:color];
+}
+
+- (void)setDonutRadius:(CGFloat)donutRadius {
+    _donutView.frame = CGRectMake(_donutView.frame.origin.x, _donutView.frame.origin.y, donutRadius * 2, donutRadius * 2);
+    [_donutView.layer setCornerRadius:donutRadius];
+    _donutView.center = _pieView.center;
+}
+
+- (void)setDonutColor:(UIColor *)donutColor {
+    _donutView.backgroundColor = donutColor;
 }
 
 #pragma mark - manage settings
