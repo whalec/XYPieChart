@@ -70,4 +70,7 @@
 - (void)setSliceSelectedAtIndex:(NSInteger)index;
 - (void)setSliceDeselectedAtIndex:(NSInteger)index;
 
+// Returns you the 'center' point of the slice. On the it's the middle of the outside of the arc.
+- (CGPoint)pointForSliceAtIndex:(NSInteger)index inView:(UIView *)view;
+
 @end;
